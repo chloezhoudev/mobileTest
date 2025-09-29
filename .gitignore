@@ -28,6 +28,7 @@ ios/*.xcworkspacedata
 ios/Pods/
 ios/build/
 *.pbxproj
+ios/**/Info.plist
 
 # Android/IntelliJ
 build/

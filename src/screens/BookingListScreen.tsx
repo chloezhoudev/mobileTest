@@ -123,7 +123,45 @@ const BookingListScreen = () => {
         )}
       </View>
 
-      {/* We'll add segments list next... */}
+      {/* Segments Section */}
+      <Text style={styles.sectionTitle}>Journey Segments</Text>
+
+      <FlatList
+        data={booking.data.segments}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.segmentCard}>
+            <Text style={styles.segmentTitle}>Segment {item.id}</Text>
+
+            <View style={styles.routeContainer}>
+              <View style={styles.locationBox}>
+                <Text style={styles.locationLabel}>From</Text>
+                <Text style={styles.locationCode}>
+                  {item.originAndDestinationPair.origin.code}
+                </Text>
+                <Text style={styles.locationName}>
+                  {item.originAndDestinationPair.origin.displayName}
+                </Text>
+              </View>
+
+              <Text style={styles.arrow}>→</Text>
+
+              <View style={styles.locationBox}>
+                <Text style={styles.locationLabel}>To</Text>
+                <Text style={styles.locationCode}>
+                  {item.originAndDestinationPair.destination.code}
+                </Text>
+                <Text style={styles.locationName}>
+                  {item.originAndDestinationPair.destination.displayName}
+                </Text>
+              </View>
+            </View>
+          </View>
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+      />
     </View>
   );
 };
@@ -196,6 +234,60 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#F44336',
     fontSize: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 15,
+    marginBottom: 10,
+    marginTop: 10,
+    color: '#333',
+  },
+  segmentCard: {
+    backgroundColor: 'white',
+    marginHorizontal: 15,
+    marginBottom: 10,
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  segmentTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#007AFF',
+  },
+  routeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  locationBox: {
+    flex: 1,
+  },
+  locationLabel: {
+    fontSize: 12,
+    color: '#999',
+    marginBottom: 4,
+  },
+  locationCode: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  locationName: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 2,
+  },
+  arrow: {
+    fontSize: 24,
+    color: '#007AFF',
+    marginHorizontal: 10,
   },
 });
 

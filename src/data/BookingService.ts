@@ -32,9 +32,6 @@ class BookingService {
     // Simulate network delay (real API would have latency)
     return new Promise(resolve => {
       setTimeout(() => {
-        console.log(
-          '📡 [BookingService] Fetching booking data from mock JSON...',
-        );
         resolve(bookingData as BookingData);
       }, 1000);
     });

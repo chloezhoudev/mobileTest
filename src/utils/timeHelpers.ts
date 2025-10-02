@@ -1,5 +1,3 @@
-// src/utils/timeHelpers.ts
-
 /**
  * Check if a booking has expired
  */

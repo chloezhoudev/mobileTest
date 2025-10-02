@@ -18,9 +18,8 @@ class BookingDataManager {
         if (cachedData) {
           const expired = isBookingExpired(cachedData.expiryTime);
 
-          // If not expired, return immediately (fast!)
+          // If not expired, return immediately
           if (!expired) {
-            console.log('✅ [DataManager] Returning valid cached booking');
             return {
               data: cachedData,
               source: 'cache',
@@ -28,19 +27,18 @@ class BookingDataManager {
             };
           }
 
-          console.log('⚠️ [DataManager] Cached booking has expired');
+          // Cached booking has expired
         }
       } catch (error) {
-        // Cache failed - not critical, continue to service
+        // Cache failed
         console.warn('⚠️ [DataManager] Cache failed, using service:', error);
       }
     }
 
     // Step 2: Fetch fresh data from service
-    console.log('🔄 [DataManager] Fetching fresh booking data...');
     const freshData = await BookingService.fetchBooking();
 
-    // Step 3: Try to save to cache (failure is not critical)
+    // Step 3: Try to save to cache
     try {
       await BookingCache.saveBooking(freshData);
     } catch (error) {
@@ -60,13 +58,11 @@ class BookingDataManager {
   }
 
   async refreshBooking(): Promise<BookingResult> {
-    console.log('🔄 [DataManager] Forcing refresh...');
     return this.getBooking(true);
   }
 
   async clearCache(): Promise<void> {
     await BookingCache.clearBooking();
-    console.log('🗑️ [DataManager] Cache cleared');
   }
 }
 

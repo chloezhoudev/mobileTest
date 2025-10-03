@@ -127,6 +127,7 @@ const BookingListScreen = () => {
       <Text style={styles.sectionTitle}>Journey Segments</Text>
 
       <FlatList
+        testID="booking-list"
         data={booking.data.segments}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
